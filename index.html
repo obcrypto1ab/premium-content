@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  PREMIUM CONTENT FREE — single-file demo build
+  Tagline: Discover More. Watch Better.
+
+  WHAT THIS FILE IS
+  · A complete, self-contained frontend (HTML + CSS + vanilla JS).
+  · All video cards are generated from the `VIDEOS` array in the script below.
+  · Video/download sources are clearly-labeled, permissively-licensed public
+    sample media used ONLY to demonstrate the player. Replace them with your
+    own authorized content before launch.
+  · Ad containers are prepared for Adsterra but contain NO live ad code and
+    NO publisher IDs. Paste your official code inside the marked containers.
+
+  BEFORE LAUNCH — REPLACE THE PLACEHOLDERS
+  · canonical URL, Open Graph image, favicon (see <head> comments)
+  · the sample video data (VIDEOS array)
+  · the Privacy Policy / Terms of Use placeholder text
+  · the contact placeholder in the footer
+  · paste your official Adsterra placement code into each marked ad slot
+  ============================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ================= SEO ================= -->
+  <title>PREMIUM CONTENT FREE — Discover Premium Videos, Watch Better</title>
+  <meta name="description" content="PREMIUM CONTENT FREE — discover handpicked videos, trending picks, and carefully organized categories in one beautifully designed, cinematic destination. Discover More. Watch Better.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#08090D">
+  <meta name="color-scheme" content="dark">
+  <!-- PLACEHOLDER: replace with your final production URL before launch -->
+  <link rel="canonical" href="https://www.example.com/">
+
+  <!-- Open Graph (placeholders — replace URL/image before launch) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PREMIUM CONTENT FREE">
+  <meta property="og:title" content="PREMIUM CONTENT FREE — Discover Premium Videos, Watch Better">
+  <meta property="og:description" content="Explore handpicked videos, trending discoveries, and new content in one beautifully designed destination.">
+  <!-- PLACEHOLDER: host a real 1200x630 social image and update this URL -->
+  <meta property="og:url" content="https://www.example.com/">
+  <meta property="og:image" content="https://www.example.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon: inline SVG placeholder (gradient play mark). Replace with your
+       own /favicon.ico + apple-touch-icon for production. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%23EC4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M26 20l20 12-20 12z' fill='%23fff'/%3E%3C/svg%3E">
+
+  <!-- Structured data: site-level only. No VideoObject markup is used because
+       the demo library contains placeholder entries, not confirmed content. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PREMIUM CONTENT FREE",
+    "url": "https://www.example.com/",
+    "description": "Discover handpicked videos, trending picks, and organized categories. Discover More. Watch Better."
+  }
+  </script>
+
+  <!-- Third-party ad scripts are NOT loaded by this demo. When you insert
+       official Adsterra code into the marked containers, follow the provider's
+       loading instructions (async/defer as recommended) — do not duplicate
+       scripts across slots. If your ad provider and applicable law require a
+       cookie/consent banner, add a compliant consent solution here. -->
+
+  <style>
+    /* ==========================================================
+       DESIGN TOKENS
+       ========================================================== */
+    :root{
+      --bg:#08090D;
+      --bg-2:#0B0C12;
+      --surface:#12141B;
+      --card:#191C25;
+      --line:rgba(255,255,255,.08);
+      --line-strong:rgba(255,255,255,.16);
+      --text:#F5F6FA;
+      --text-2:#A9AEBD;
+      --text-3:#7C8292;
+      --accent:#8B5CF6;
+      --accent-soft:rgba(139,92,246,.18);
+      --accent-2:#EC4899;
+      --grad:linear-gradient(135deg,#8B5CF6 0%,#EC4899 100%);
+      --radius:16px;
+      --radius-lg:24px;
+      --shadow-1:0 8px 24px rgba(0,0,0,.35);
+      --shadow-2:0 24px 60px rgba(0,0,0,.55);
+      --header-h:72px;
+      --container:1320px;
+      --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    }
+
+    /* ==========================================================
+       BASE / RESET
+       ========================================================== */
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px)}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      font-size:16px;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      overflow-x:clip;
+    }
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;color:inherit}
+    h1,h2,h3,h4{line-height:1.2;margin:0;letter-spacing:-.02em}
+    p{margin:0}
+    ul{margin:0;padding:0;list-style:none}
+    [hidden]{display:none!important}
+    ::selection{background:rgba(139,92,246,.45);color:#fff}
+
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:#262A36;border-radius:8px}
+    ::-webkit-scrollbar-thumb:hover{background:#333848}
+
+    :focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;border-radius:4px}
+
+    body.no-scroll{overflow:hidden}
+
+    .container{width:min(100% - 40px,var(--container));margin-inline:auto}
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+    }
+    .skip-link{
+      position:fixed;top:-60px;left:16px;z-index:500;
+      background:var(--grad);color:#fff;padding:10px 18px;border-radius:10px;
+      font-weight:600;transition:top .2s ease;
+    }
+    .skip-link:focus{top:12px}
+
+    .grad-text{
+      background:var(--grad);
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;color:transparent;
+    }
+
+    /* ==========================================================
+       BUTTONS / BADGES / ICONS
+       ========================================================== */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      padding:14px 28px;border-radius:999px;border:1px solid transparent;
+      font-weight:600;font-size:.95rem;letter-spacing:.03em;cursor:pointer;
+      transition:transform .2s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease;
+      white-space:nowrap;
+    }
+    .btn svg{width:18px;height:18px;flex:none}
+    .btn:active{transform:scale(.97)}
+    .btn-primary{
+      background:var(--grad);color:#fff;
+      box-shadow:0 8px 24px rgba(139,92,246,.32);
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(236,72,153,.38)}
+    .btn-ghost{
+      background:rgba(255,255,255,.04);border-color:var(--line-strong);color:var(--text);
+    }
+    .btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.32);transform:translateY(-2px)}
+    .btn-sm{padding:10px 18px;font-size:.86rem}
+
+    .icon-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:42px;height:42px;border-radius:50%;flex:none;
+      background:rgba(255,255,255,.05);border:1px solid var(--line-strong);
+      color:var(--text);cursor:pointer;
+      transition:background .2s ease,border-color .2s ease,transform .2s ease;
+    }
+    .icon-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+    .icon-btn:active{transform:scale(.94)}
+    .icon-btn svg{width:20px;height:20px}
+
+    .badge{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:5px 12px;border-radius:999px;
+      font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+      background:rgba(8,9,13,.66);color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    }
+    .badge-cat{background:rgba(139,92,246,.85);border-color:transparent}
+    .badge-featured{background:var(--grad);border-color:transparent;letter-spacing:.12em}
+    .badge-sample{
+      background:transparent;color:var(--text-3);
+      border:1px dashed var(--line-strong);text-transform:none;letter-spacing:.04em;
+    }
+
+    /* ==========================================================
+       HEADER / NAVIGATION
+       ========================================================== */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;z-index:100;
+      border-bottom:1px solid transparent;
+      transition:background .3s ease,box-shadow .3s ease,border-color .3s ease;
+    }
+    .site-header.scrolled{
+      background:rgba(8,9,13,.82);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-bottom-color:var(--line);
+      box-shadow:0 8px 30px rgba(0,0,0,.35);
+    }
+    .header-inner{
+      height:var(--header-h);
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .brand{display:inline-flex;align-items:center;gap:11px;flex:none}
+    .brand-logo{width:38px;height:38px;flex:none;filter:drop-shadow(0 4px 12px rgba(139,92,246,.4))}
+    .brand-name{
+      font-weight:800;font-size:.94rem;letter-spacing:.14em;white-space:nowrap;
+    }
+    .main-nav ul{display:flex;align-items:center;gap:6px}
+    .nav-link{
+      position:relative;display:inline-block;
+      padding:10px 14px;font-size:.92rem;font-weight:500;color:var(--text-2);
+      transition:color .25s ease;
+    }
+    .nav-link::after{
+      content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;
+      border-radius:2px;background:var(--grad);
+      transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+    }
+    .nav-link:hover{color:var(--text)}
+    .nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+    .nav-link.active{color:var(--text)}
+    .header-actions{display:flex;align-items:center;gap:10px}
+    .menu-toggle{display:none}
+    .menu-toggle .icon-close{display:none}
+    .menu-toggle[aria-expanded="true"] .icon-burger{display:none}
+    .menu-toggle[aria-expanded="true"] .icon-close{display:block}
+
+    .mobile-menu{
+      position:fixed;top:var(--header-h);left:0;right:0;z-index:99;
+      background:rgba(9,10,15,.94);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+      padding:10px 24px 26px;
+      max-height:calc(100vh - var(--header-h));overflow:auto;
+      opacity:0;transform:translateY(-10px);
+      transition:opacity .25s ease,transform .25s ease;
+    }
+    .mobile-menu.open{opacity:1;transform:none}
+    .mobile-menu a.mobile-link{
+      display:block;padding:15px 4px;font-size:1.02rem;font-weight:500;
+      color:var(--text-2);border-bottom:1px solid var(--line);
+    }
+    .mobile-menu a.mobile-link:hover{color:var(--text)}
+    .mobile-menu .btn{margin-top:18px;width:100%}
+
+    @media (max-width:899px){
+      .main-nav{display:none}
+      .menu-toggle{display:inline-flex}
+    }
+    @media (min-width:900px){
+      .mobile-menu{display:none}
+    }
+
+    /* ==========================================================
+       AD SLOTS
+       ========================================================== */
+    .ad-strip{padding:18px 0 0}
+    .ad-strip.ad-strip-top{padding-top:calc(var(--header-h) + 14px)}
+    .ad-strip:last-of-type{padding:0 0 8px}
+    .ad-slot{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:6px;min-height:96px;width:100%;
+      max-width:100%;overflow:hidden;
+      background:var(--surface);
+      border:1px dashed var(--line-strong);
+      border-radius:12px;
+      color:var(--text-3);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+      text-align:center;padding:10px;
+    }
+    .ad-placeholder{display:flex;align-items:center;gap:8px}
+    .ad-placeholder::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.7}
+    .ad-hint{font-size:.68rem;letter-spacing:.05em;text-transform:none;color:var(--text-3);opacity:.75}
+    .ad-side{min-height:260px}
+    .ad-detail{margin-top:26px;min-height:110px}
+    .grid-ad{grid-column:1/-1}
+    .grid-ad .ad-slot{min-height:110px}
+    /* Cleanly collapse every ad container when SITE_CONFIG.enableAds = false */
+    html.ads-off [data-ad-slot],
+    html.ads-off .ad-strip,
+    html.ads-off .grid-ad{display:none!important}
+
+    /* ==========================================================
+       HERO
+       ========================================================== */
+    .hero{
+      position:relative;overflow:hidden;
+      padding:calc(var(--header-h) + 44px) 0 84px;
+    }
+    .hero-bg{position:absolute;inset:0;pointer-events:none;will-change:transform}
+    .hero-blob{position:absolute;border-radius:50%}
+    .blob-a{
+      width:60vw;height:60vw;max-width:840px;max-height:840px;
+      top:-20%;right:-12%;
+      background:radial-gradient(circle at center,rgba(139,92,246,.30),rgba(139,92,246,0) 66%);
+      animation:drift 17s ease-in-out infinite alternate;
+    }
+    .blob-b{
+      width:52vw;height:52vw;max-width:720px;max-height:720px;
+      bottom:-28%;left:-14%;
+      background:radial-gradient(circle at center,rgba(236,72,153,.20),rgba(236,72,153,0) 66%);
+      animation:drift 22s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes drift{
+      from{transform:translate3d(0,0,0) scale(1)}
+      to{transform:translate3d(4%,6%,0) scale(1.07)}
+    }
+    .hero-grid-lines{
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+      background-size:56px 56px;
+      -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 25%,transparent 72%);
+      mask-image:radial-gradient(ellipse at 50% 0%,#000 25%,transparent 72%);
+    }
+    .hero-vignette{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse at 50% -10%,rgba(139,92,246,.12),transparent 55%),
+        linear-gradient(to bottom,transparent 58%,var(--bg) 97%);
+    }
+    .hero-inner{
+      position:relative;display:grid;gap:52px;align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:12px;
+      font-size:.76rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+      color:#C4B5FD;margin-bottom:20px;
+    }
+    .eyebrow::before{content:"";width:28px;height:2px;border-radius:2px;background:var(--grad)}
+    .hero h1{
+      font-size:clamp(2.35rem,6vw,4.35rem);
+      font-weight:800;letter-spacing:-.03em;line-height:1.06;
+      margin-bottom:22px;
+    }
+    .hero-sub{
+      color:var(--text-2);font-size:1.06rem;max-width:52ch;margin-bottom:34px;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
+
+    .featured-card{position:relative}
+    .featured-thumb{
+      position:relative;aspect-ratio:16/9;overflow:hidden;
+      border-radius:var(--radius-lg);
+      border:1px solid var(--line-strong);
+      background:var(--card);
+      box-shadow:var(--shadow-2);
+    }
+    .featured-thumb .card-img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+    .featured-card:hover .featured-thumb .card-img{transform:scale(1.04)}
+    .featured-thumb::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(to top,rgba(5,6,10,.88) 0%,rgba(5,6,10,.25) 45%,rgba(5,6,10,0) 70%);
+    }
+    .badge-featured{
+      position:absolute;top:16px;left:16px;z-index:2;
+    }
+    .featured-info{
+      position:absolute;left:22px;right:22px;bottom:18px;z-index:2;
+      pointer-events:none;
+    }
+    .featured-kicker{
+      font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+      color:#D8CCFE;margin-bottom:6px;
+    }
+    .featured-title{
+      font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:700;letter-spacing:-.02em;
+      line-height:1.25;margin-bottom:12px;
+      text-shadow:0 2px 18px rgba(0,0,0,.6);
+    }
+    .featured-chips{display:flex;gap:10px;flex-wrap:wrap}
+
+    .play-overlay{
+      position:absolute;inset:0;z-index:3;
+      display:grid;place-items:center;
+      background:transparent;border:0;padding:0;cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .play-btn{
+      display:grid;place-items:center;
+      width:64px;height:64px;border-radius:50%;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.4);
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      color:#fff;
+      opacity:0;transform:scale(.82);
+      transition:opacity .3s ease,transform .3s ease,background .3s ease;
+    }
+    .play-btn svg{width:26px;height:26px;margin-left:3px}
+    .video-card:hover .play-btn,.play-overlay:focus-visible .play-btn{opacity:1;transform:scale(1);background:rgba(139,92,246,.85)}
+    .play-btn-lg{
+      width:84px;height:84px;opacity:1;transform:scale(1);
+      animation:pulse 2.8s ease-out infinite;
+    }
+    .play-btn-lg svg{width:32px;height:32px}
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(255,255,255,.30)}
+      70%{box-shadow:0 0 0 22px rgba(255,255,255,0)}
+      100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+    }
+
+    @media (min-width:900px){
+      .hero{padding:calc(var(--header-h) + 72px) 0 108px}
+      .hero-inner{grid-template-columns:1.02fr .98fr;gap:64px}
+    }
+
+    /* ==========================================================
+       SECTIONS
+       ========================================================== */
+    .section{padding:84px 0}
+    .section-alt{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .section-head{max-width:720px;margin-bottom:44px}
+    .section-head.center{margin-inline:auto;text-align:center}
+    .section-head.center .eyebrow{justify-content:center}
+    .section-head.center .eyebrow::before{display:none}
+    .section-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:800;margin-bottom:14px}
+    .section-sub{color:var(--text-2);font-size:1rem}
+    @media (min-width:900px){
+      .section{padding:104px 0}
+    }
+
+    /* ==========================================================
+       VIDEO CARDS + GRIDS
+       ========================================================== */
+    .video-grid{display:grid;gap:24px;grid-template-columns:1fr}
+    @media (min-width:560px){.video-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:960px){.video-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (min-width:1200px){.video-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (min-width:1460px){.video-grid{grid-template-columns:repeat(4,1fr)}}
+
+    .video-card{
+      display:flex;flex-direction:column;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+    }
+    .video-card:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow-2);
+      border-color:rgba(139,92,246,.45);
+    }
+    .card-thumb{
+      position:relative;aspect-ratio:16/9;overflow:hidden;
+      background:var(--card);flex:none;
+    }
+    .card-thumb::before{
+      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(to top,rgba(5,6,10,.55),transparent 55%);
+      opacity:0;transition:opacity .3s ease;
+    }
+    .video-card:hover .card-thumb::before{opacity:1}
+    .card-img{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+      transition:transform .6s ease;
+    }
+    .video-card:hover .card-img{transform:scale(1.06)}
+    .card-thumb.no-img::before{
+      content:attr(data-letter);
+      position:absolute;inset:0;z-index:1;
+      display:grid;place-items:center;
+      font-size:4.6rem;font-weight:800;color:rgba(255,255,255,.16);
+      background:none;
+    }
+    .card-thumb .badge-cat{position:absolute;top:12px;left:12px;z-index:2}
+    .card-thumb .badge-dur{position:absolute;bottom:12px;right:12px;z-index:2}
+
+    .card-body{display:flex;flex-direction:column;gap:10px;padding:18px 18px 20px;flex:1}
+    .card-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:26px}
+    .card-meta time{font-size:.78rem;color:var(--text-3);letter-spacing:.02em}
+    .card-title{
+      font-size:1.02rem;font-weight:700;letter-spacing:-.01em;line-height:1.35;
+      display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .card-desc{
+      color:var(--text-2);font-size:.88rem;flex:1;
+      display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .card-actions{display:flex;gap:10px;margin-top:6px}
+    .card-actions .btn{flex:1}
+
+    /* ==========================================================
+       TRENDING ROW
+       ========================================================== */
+    .trending-wrap{position:relative}
+    .trending-row{
+      display:grid;grid-auto-flow:column;
+      grid-auto-columns:min(360px,82vw);
+      gap:24px;overflow-x:auto;overscroll-behavior-x:contain;
+      scroll-snap-type:x mandatory;
+      padding:6px 4px 22px;
+      scrollbar-width:thin;scrollbar-color:#333848 transparent;
+    }
+    .trending-row .video-card{scroll-snap-align:start}
+    .row-nav{display:flex;gap:12px;justify-content:flex-end;margin-top:2px}
+
+    /* ==========================================================
+       FILTER BAR / GALLERY LAYOUT
+       ========================================================== */
+    .filter-bar{
+      display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+      margin-bottom:14px;
+    }
+    .search-field{position:relative;flex:1 1 260px;min-width:0}
+    .search-icon{
+      position:absolute;left:14px;top:50%;transform:translateY(-50%);
+      color:var(--text-3);pointer-events:none;display:inline-flex;
+    }
+    .search-icon svg{width:18px;height:18px}
+    .search-input{padding-left:44px;padding-right:44px}
+    .field{
+      width:100%;padding:14px 18px;
+      border-radius:12px;border:1px solid var(--line-strong);
+      background:rgba(8,9,13,.65);color:var(--text);
+      font-size:.96rem;font-family:inherit;
+      transition:border-color .2s ease,box-shadow .2s ease;
+    }
+    .field::placeholder{color:var(--text-3)}
+    .field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.22)}
+    .field:focus-visible{outline:none}
+    .search-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:none;background:transparent}
+    .search-clear svg{width:16px;height:16px}
+
+    .chip-row{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{
+      padding:9px 17px;border-radius:999px;
+      border:1px solid var(--line-strong);background:rgba(255,255,255,.03);
+      color:var(--text-2);font-size:.86rem;font-weight:500;cursor:pointer;
+      transition:background .2s ease,color .2s ease,border-color .2s ease;
+    }
+    .chip:hover{color:var(--text);border-color:rgba(255,255,255,.32)}
+    .chip.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(139,92,246,.3)}
+
+    .segmented{
+      display:inline-flex;gap:4px;padding:4px;
+      background:var(--surface);border:1px solid var(--line);border-radius:999px;flex:none;
+    }
+    .segmented button{
+      padding:8px 18px;border-radius:999px;border:none;background:transparent;
+      color:var(--text-2);font-size:.86rem;font-weight:600;cursor:pointer;
+      transition:background .2s ease,color .2s ease;
+    }
+    .segmented button.active{background:var(--card);color:var(--text);box-shadow:inset 0 0 0 1px var(--line-strong)}
+
+    .result-count{color:var(--text-3);font-size:.88rem;margin-bottom:22px}
+
+    .gallery-layout{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);align-items:start}
+    .gallery-side{display:none}
+    @media (min-width:1200px){
+      .gallery-layout{grid-template-columns:minmax(0,1fr) 300px}
+      .gallery-side{display:block;position:sticky;top:calc(var(--header-h) + 20px)}
+    }
+
+    .empty-state{
+      grid-column:1/-1;
+      display:flex;flex-direction:column;align-items:center;gap:10px;
+      text-align:center;padding:70px 24px;
+      background:var(--card);border:1px dashed var(--line-strong);border-radius:var(--radius-lg);
+    }
+    .empty-icon{
+      display:grid;place-items:center;width:60px;height:60px;border-radius:50%;
+      background:var(--accent-soft);color:#C4B5FD;margin-bottom:6px;
+    }
+    .empty-icon svg{width:26px;height:26px}
+    .empty-title{font-size:1.15rem;font-weight:700}
+    .empty-sub{color:var(--text-2);font-size:.92rem;max-width:44ch}
+    .empty-state .btn{margin-top:12px}
+
+    .noscript-note{
+      margin-top:24px;padding:16px 20px;border-radius:12px;
+      background:var(--surface);border:1px solid var(--line-strong);color:var(--text-2);
+    }
+
+    /* ==========================================================
+       CATEGORY TILES
+       ========================================================== */
+    .cat-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+    @media (min-width:700px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (min-width:1024px){.cat-grid{grid-template-columns:repeat(6,1fr)}}
+    .cat-tile{
+      display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+      padding:22px 18px;text-align:left;
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      cursor:pointer;
+      transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+    }
+    .cat-tile:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.45);box-shadow:var(--shadow-1)}
+    .cat-icon{
+      display:grid;place-items:center;width:46px;height:46px;border-radius:13px;
+      background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(236,72,153,.14));
+      border:1px solid rgba(139,92,246,.32);color:#D8CCFE;
+    }
+    .cat-icon svg{width:22px;height:22px}
+    .cat-name{font-weight:700;font-size:.95rem}
+    .cat-count{font-size:.78rem;color:var(--text-3)}
+    .cat-arrow{
+      margin-top:auto;color:var(--text-3);
+      opacity:0;transform:translateX(-6px);
+      transition:opacity .25s ease,transform .25s ease,color .25s ease;
+    }
+    .cat-arrow svg{width:16px;height:16px}
+    .cat-tile:hover .cat-arrow{opacity:1;transform:none;color:#C4B5FD}
+
+    /* ==========================================================
+       WHY CHOOSE US
+       ========================================================== */
+    .why-grid{display:grid;gap:22px;grid-template-columns:1fr}
+    @media (min-width:640px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:1024px){.why-grid{grid-template-columns:repeat(4,1fr)}}
+    .why-card{
+      padding:28px 24px;border-radius:20px;
+      background:var(--card);border:1px solid var(--line);
+      transition:transform .3s ease,border-color .3s ease;
+    }
+    .why-card:hover{transform:translateY(-4px);border-color:rgba(236,72,153,.4)}
+    .why-icon{
+      display:grid;place-items:center;width:52px;height:52px;border-radius:15px;
+      background:linear-gradient(135deg,rgba(139,92,246,.26),rgba(236,72,153,.14));
+      border:1px solid rgba(139,92,246,.32);color:#D8CCFE;margin-bottom:18px;
+    }
+    .why-icon svg{width:24px;height:24px}
+    .why-card h3{font-size:1.05rem;margin-bottom:10px}
+    .why-card p{color:var(--text-2);font-size:.9rem}
+
+    /* ==========================================================
+       NEWSLETTER
+       ========================================================== */
+    .newsletter-card{
+      position:relative;overflow:hidden;
+      border-radius:var(--radius-lg);
+      border:1px solid var(--line-strong);
+      background:
+        radial-gradient(ellipse at 15% 0%,rgba(139,92,246,.22),transparent 55%),
+        radial-gradient(ellipse at 90% 100%,rgba(236,72,153,.16),transparent 55%),
+        var(--surface);
+      padding:clamp(34px,6vw,64px);
+      text-align:center;
+    }
+    .newsletter-card h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:14px}
+    .newsletter-card .section-sub{max-width:52ch;margin:0 auto 30px}
+    .newsletter-form{
+      display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+      max-width:540px;margin:0 auto;
+    }
+    .newsletter-form .field{flex:1 1 240px;min-width:0;text-align:left}
+    .form-msg{margin-top:16px;font-size:.9rem;min-height:1.4em}
+    .form-msg.error{color:#FCA5A5}
+    .form-msg.success{color:#6EE7B7}
+    .newsletter-disclaimer{
+      margin-top:14px;font-size:.76rem;color:var(--text-3);letter-spacing:.02em;
+    }
+
+    /* ==========================================================
+       FAQ
+       ========================================================== */
+    .faq-list{max-width:800px;margin-inline:auto;display:grid;gap:14px}
+    .faq-item{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      overflow:hidden;transition:border-color .3s ease;
+    }
+    .faq-item:hover{border-color:var(--line-strong)}
+    .faq-q{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      width:100%;padding:20px 24px;text-align:left;
+      background:none;border:none;cursor:pointer;
+      font-size:1rem;font-weight:600;letter-spacing:-.01em;
+    }
+    .faq-q .chev{flex:none;color:var(--text-3);transition:transform .3s ease}
+    .faq-q .chev svg{width:18px;height:18px}
+    .faq-q[aria-expanded="true"] .chev{transform:rotate(180deg);color:#C4B5FD}
+    .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+    .faq-a.open{grid-template-rows:1fr}
+    .faq-a-inner{overflow:hidden}
+    .faq-a:not(.open) .faq-a-inner{visibility:hidden}
+    .faq-a p{padding:0 24px 22px;color:var(--text-2);font-size:.93rem}
+
+    /* ==========================================================
+       FOOTER
+       ========================================================== */
+    .site-footer{border-top:1px solid var(--line);background:#0A0B10}
+    .footer-grid{
+      display:grid;gap:40px;grid-template-columns:1fr;
+      padding:64px 0 44px;
+    }
+    @media (min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1.2fr}}
+    .footer-brand .brand{margin-bottom:16px}
+    .footer-tagline{
+      font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      color:#C4B5FD;margin-bottom:14px;
+    }
+    .footer-blurb{color:var(--text-2);font-size:.9rem;max-width:38ch}
+    .footer-col h3{
+      font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--text-3);margin-bottom:18px;
+    }
+    .footer-col ul{display:grid;gap:11px}
+    .footer-col a,.footer-col button{
+      background:none;border:none;padding:0;text-align:left;cursor:pointer;
+      color:var(--text-2);font-size:.92rem;transition:color .2s ease;
+    }
+    .footer-col a:hover,.footer-col button:hover{color:var(--text)}
+    .footer-note{font-size:.78rem;color:var(--text-3);margin-top:14px;line-height:1.6}
+    .footer-bottom{
+      border-top:1px solid var(--line);
+      padding:22px 0;
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+      color:var(--text-3);font-size:.8rem;
+    }
+
+    /* ==========================================================
+       MODALS (video player + policy placeholders)
+       ========================================================== */
+    .modal{
+      position:fixed;inset:0;z-index:200;
+      display:grid;place-items:center;padding:20px;
+    }
+    .modal-backdrop{
+      position:absolute;inset:0;
+      background:rgba(4,5,8,.74);
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      opacity:0;transition:opacity .28s ease;
+    }
+    .modal-panel{
+      position:relative;
+      width:min(960px,100%);max-height:calc(100dvh - 40px);
+      overflow:auto;
+      background:var(--surface);
+      border:1px solid var(--line-strong);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-2);
+      opacity:0;transform:translateY(18px) scale(.98);
+      transition:opacity .3s ease,transform .3s ease;
+    }
+    #policy-modal .modal-panel{width:min(580px,100%)}
+    .modal.open .modal-backdrop{opacity:1}
+    .modal.open .modal-panel{opacity:1;transform:none}
+    .modal-panel:focus{outline:none}
+    .modal-close{
+      position:absolute;top:14px;right:14px;z-index:6;
+      background:rgba(8,9,13,.72);
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    }
+
+    .player-stage{position:relative;aspect-ratio:16/9;background:#000;flex:none}
+    .player-stage > [data-player-state]{position:absolute;inset:0}
+    .player-loading,.player-note{
+      display:none;flex-direction:column;align-items:center;justify-content:center;
+      gap:14px;text-align:center;color:var(--text-2);padding:24px;
+    }
+    .player-stage[data-active="loading"] .player-loading{display:flex}
+    .player-stage[data-active="media"] .player-media{display:block}
+    .player-stage[data-active="empty"] .player-note.is-empty{display:flex}
+    .player-stage[data-active="error"] .player-note.is-error{display:flex}
+    .player-stage.is-buffering .player-loading{
+      display:flex;background:rgba(4,5,8,.55);z-index:2;
+    }
+    .player-media{display:none}
+    .player-media video,.player-media iframe{
+      width:100%;height:100%;display:block;border:0;background:#000;
+    }
+    .spinner{
+      width:44px;height:44px;border-radius:50%;
+      border:3px solid rgba(255,255,255,.16);border-top-color:#fff;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(1turn)}}
+    .note-icon{
+      display:grid;place-items:center;width:58px;height:58px;border-radius:50%;
+      background:var(--accent-soft);color:#C4B5FD;
+    }
+    .note-icon svg{width:26px;height:26px}
+    .player-note p{max-width:40ch}
+
+    .modal-info{padding:26px 28px 30px}
+    @media (min-width:700px){.modal-info{padding:30px 34px 34px}}
+    .modal-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+    .meta-date{font-size:.8rem;color:var(--text-3)}
+    .modal-title{font-size:clamp(1.25rem,2.6vw,1.7rem);margin-bottom:12px;letter-spacing:-.02em}
+    .modal-desc{color:var(--text-2);font-size:.95rem;margin-bottom:22px}
+    .modal-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+    .dl-note{font-size:.85rem;color:var(--text-3)}
+    .dl-note::before{content:"ⓘ ";color:var(--text-3)}
+
+    .policy-body{padding:28px 28px 30px}
+    .policy-body h2{font-size:1.3rem;margin-bottom:14px;padding-right:52px}
+    .policy-body p{color:var(--text-2);font-size:.93rem;margin-bottom:12px}
+    .policy-tag{
+      display:inline-flex;padding:5px 12px;border-radius:999px;margin-bottom:16px;
+      font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      background:rgba(236,72,153,.16);color:#F9A8D4;border:1px solid rgba(236,72,153,.35);
+    }
+
+    /* ==========================================================
+       TOAST
+       ========================================================== */
+    .toast{
+      position:fixed;left:50%;bottom:28px;z-index:400;
+      transform:translate(-50%,14px);
+      max-width:min(92vw,480px);
+      display:flex;align-items:center;gap:10px;
+      padding:13px 22px;border-radius:999px;
+      background:#1C1F2A;border:1px solid var(--line-strong);
+      color:var(--text);font-size:.9rem;
+      box-shadow:var(--shadow-2);
+      opacity:0;pointer-events:none;
+      transition:opacity .3s ease,transform .3s ease;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    /* ==========================================================
+       SCROLL REVEAL
+       ========================================================== */
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in-view{opacity:1;transform:none}
+
+    /* ==========================================================
+       REDUCED MOTION
+       ========================================================== */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+      }
+      .reveal{opacity:1;transform:none}
+      .play-btn-lg{opacity:1;transform:scale(1)}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="PREMIUM CONTENT FREE — back to top">
+        <svg class="brand-logo" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8B5CF6"/>
+              <stop offset="1" stop-color="#EC4899"/>
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="11" fill="url(#logo-grad)"/>
+          <path d="M15.5 12.5 28.5 20l-13 7.5z" fill="#fff"/>
+        </svg>
+        <span class="brand-name">PREMIUM&nbsp;<span class="grad-text">CONTENT</span>&nbsp;FREE</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#latest" class="nav-link">Latest Videos</a></li>
+          <li><a href="#trending" class="nav-link">Trending</a></li>
+          <li><a href="#categories" class="nav-link">Categories</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="search-toggle" aria-label="Search videos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+        </button>
+        <button type="button" class="icon-btn menu-toggle" id="menu-toggle"
+                aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+          <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu (disclosure pattern; closes on Escape, link click, or resize) -->
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav aria-label="Mobile">
+        <a href="#home" class="mobile-link">Home</a>
+        <a href="#latest" class="mobile-link">Latest Videos</a>
+        <a href="#trending" class="mobile-link">Trending</a>
+        <a href="#categories" class="mobile-link">Categories</a>
+        <a href="#videos" class="mobile-link">All Videos</a>
+        <button type="button" class="btn btn-primary" data-action="focus-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          Search Videos
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         AD SLOT A — HEADER BANNER (data-ad-slot="header-banner")
+         Responsive banner below the main navigation, above all content.
+         ============================================================ -->
+    <div class="ad-strip ad-strip-top">
+      <div class="container">
+        <!-- ADSTERRA HEADER BANNER: INSERT YOUR OFFICIAL AD CODE BELOW -->
+        <div class="ad-slot" data-ad-slot="header-banner" aria-label="Advertisement">
+          <span class="ad-placeholder">Advertisement</span>
+          <span class="ad-hint">Header banner placement — paste your official Adsterra code here</span>
+          <!-- Paste the official Adsterra code supplied for this placement here. -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home" aria-label="Featured introduction">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-blob blob-a"></div>
+        <div class="hero-blob blob-b"></div>
+        <div class="hero-grid-lines"></div>
+        <div class="hero-vignette"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Your Next Favorite Video</p>
+          <h1>Discover <span class="grad-text">Premium&nbsp;Content.</span><br>Enjoy&nbsp;More.</h1>
+          <p class="hero-sub">Explore handpicked videos, trending discoveries, and new content in one beautifully designed destination.</p>
+          <div class="hero-actions">
+            <a href="#videos" class="btn btn-primary">EXPLORE VIDEOS</a>
+            <button type="button" class="btn btn-ghost" id="featured-watch" data-action="watch" data-video-id="">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg>
+              WATCH FEATURED
+            </button>
+          </div>
+        </div>
+
+        <!-- Featured video thumbnail (rendered from the VIDEOS array by JS) -->
+        <div class="featured-card" id="featured-card"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         AD SLOT B — HERO BOTTOM (data-ad-slot="hero-bottom")
+         Kept separate from the navigation and the hero action buttons.
+         ============================================================ -->
+    <div class="ad-strip" style="padding-top:0">
+      <div class="container">
+        <!-- ADSTERRA HERO BOTTOM BANNER: INSERT YOUR OFFICIAL AD CODE BELOW -->
+        <div class="ad-slot" data-ad-slot="hero-bottom" aria-label="Advertisement">
+          <span class="ad-placeholder">Advertisement</span>
+          <span class="ad-hint">Hero bottom placement — paste your official Adsterra code here</span>
+          <!-- Paste the official Adsterra code supplied for this placement here. -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TRENDING ================= -->
+    <section class="section" id="trending" aria-labelledby="trending-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Curated Picks</p>
+          <h2 id="trending-title">Trending Videos</h2>
+          <p class="section-sub">Highlights flagged as trending in this demo collection — editorial picks, not analytics-based rankings.</p>
+        </div>
+        <div class="trending-wrap reveal">
+          <div class="trending-row" id="trending-row" tabindex="0" aria-label="Trending videos — scroll horizontally to browse"></div>
+          <div class="row-nav">
+            <button type="button" class="icon-btn" data-action="scroll-row" data-dir="-1" aria-label="Scroll trending videos backward">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-action="scroll-row" data-dir="1" aria-label="Scroll trending videos forward">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LATEST ================= -->
+    <section class="section section-alt" id="latest" aria-labelledby="latest-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Fresh Additions</p>
+          <h2 id="latest-title">Latest Videos</h2>
+          <p class="section-sub">The most recently added entries in the demo library, sorted by publish date.</p>
+        </div>
+        <div class="video-grid reveal" id="latest-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIDEO DISCOVERY GALLERY ================= -->
+    <section class="section" id="videos" aria-labelledby="videos-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Browse The Library</p>
+          <h2 id="videos-title">Discover Videos</h2>
+          <p class="section-sub">Search by title or description, filter by category, and switch between the latest additions and trending picks.</p>
+        </div>
+
+        <div class="filter-bar reveal" role="search" aria-label="Search and filter videos">
+          <div class="search-field">
+            <label class="sr-only" for="video-search">Search videos by title or description</label>
+            <span class="search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </span>
+            <input type="search" id="video-search" class="field search-input"
+                   placeholder="Search by title or description…" autocomplete="off" enterkeyhint="search">
+            <button type="button" class="icon-btn search-clear" id="search-clear"
+                    data-action="clear-search" aria-label="Clear search" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+          </div>
+          <div class="chip-row" id="category-chips" role="group" aria-label="Filter by category"></div>
+          <div class="segmented" id="sort-mode" role="group" aria-label="Sort videos">
+            <button type="button" data-mode="latest" class="active" aria-pressed="true">Latest</button>
+            <button type="button" data-mode="trending" aria-pressed="false">Trending</button>
+          </div>
+        </div>
+
+        <p class="result-count" id="result-count" aria-live="polite"></p>
+
+        <div class="gallery-layout">
+          <div class="video-grid" id="video-grid"></div>
+
+          <!-- ============================================================
+               AD SLOT D — SIDEBAR (data-ad-slot="sidebar")
+               Wider desktop screens only; never forced into narrow layouts.
+               ============================================================ -->
+          <aside class="gallery-side" aria-label="Sponsored content">
+            <!-- ADSTERRA SIDEBAR AD: INSERT YOUR OFFICIAL AD CODE BELOW -->
+            <div class="ad-slot ad-side" data-ad-slot="sidebar" aria-label="Advertisement">
+              <span class="ad-placeholder">Advertisement</span>
+              <span class="ad-hint">Sidebar placement — paste your official Adsterra code here</span>
+              <!-- Paste the official Adsterra code supplied for this placement here. -->
+            </div>
+          </aside>
+        </div>
+
+        <noscript>
+          <p class="noscript-note">JavaScript is disabled — the video library, search, filters, and the player require JavaScript to work.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ================= CATEGORIES ================= -->
+    <section class="section section-alt" id="categories" aria-labelledby="categories-title">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Find Your Vibe</p>
+          <h2 id="categories-title">Explore Categories</h2>
+          <p class="section-sub">Counts reflect the videos actually available in the library — select a category to filter the gallery.</p>
+        </div>
+        <div class="cat-grid reveal" id="category-tiles"></div>
+      </div>
+    </section>
+
+    <!-- ================= WHY CHOOSE US ================= -->
+    <section class="section" id="why" aria-labelledby="why-title">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">The Premium Difference</p>
+          <h2 id="why-title">Why Choose Us</h2>
+        </div>
+        <div class="why-grid reveal">
+          <article class="why-card">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+            </span>
+            <h3>Easy Video Discovery</h3>
+            <p>Find what you love in seconds with fast search, smart filters, and a clean, uncluttered browsing layout.</p>
+          </article>
+          <article class="why-card">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="13" height="10" rx="2"/><path d="M5.5 19h6"/><path d="M8.5 15v4"/><rect x="16" y="9" width="6" height="10" rx="1.6"/></svg>
+            </span>
+            <h3>Responsive Viewing Experience</h3>
+            <p>Enjoy a flawless picture and smooth playback on any screen — from phones and tablets to widescreen desktops.</p>
+          </article>
+          <article class="why-card">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.8"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.8"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.8"/></svg>
+            </span>
+            <h3>Carefully Organized Categories</h3>
+            <p>Every video lives in a curated category, so exploring a new interest always feels effortless and inviting.</p>
+          </article>
+          <article class="why-card">
+            <span class="why-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 14H11l-1 8 8.5-12H12z"/></svg>
+            </span>
+            <h3>Convenient Access to Available Content</h3>
+            <p>Watch instantly in the browser and download full videos wherever an authorized download is provided.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NEWSLETTER ================= -->
+    <section class="section section-alt" id="newsletter" aria-labelledby="newsletter-title">
+      <div class="container">
+        <div class="newsletter-card reveal">
+          <p class="eyebrow" style="justify-content:center">Stay In The Loop</p>
+          <h2 id="newsletter-title">Never Miss a New Release</h2>
+          <p class="section-sub">Get a short note when fresh videos and new categories land. No noise — unsubscribe anytime.</p>
+          <form class="newsletter-form" id="newsletter-form" novalidate>
+            <label class="sr-only" for="newsletter-email">Email address</label>
+            <input type="email" id="newsletter-email" class="field" name="email"
+                   placeholder="you@example.com" autocomplete="email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          <p class="form-msg" id="newsletter-msg" role="status" aria-live="polite"></p>
+          <p class="newsletter-disclaimer">Demo form — your email is validated locally in the browser and is never stored, sent, or subscribed anywhere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Good To Know</p>
+          <h2 id="faq-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+              Are all videos on the site available to watch?
+              <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div class="faq-a-inner"><p>This demo ships with clearly labeled sample entries. Some have playable sources; others intentionally show the “Video coming soon. Please check back later.” state so you can see how the site behaves when a source isn’t configured. Availability is controlled entirely by the video data you add.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+              How does the Download Full Video button work?
+              <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div class="faq-a-inner"><p>The button appears on a video card only when an authorized, direct download URL has been configured for that entry. When no legitimate download exists, the button is hidden, and the player view explains that a download isn’t available. The site never bypasses DRM, paywalls, or third-party platform restrictions.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+              Which devices and browsers are supported?
+              <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div class="faq-a-inner"><p>The site is built mobile-first and works in any modern browser — Chrome, Edge, Firefox, and Safari — on phones, tablets, and desktops. Navigation is fully keyboard accessible, and all animations respect your system’s reduced-motion setting.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+              How is the site monetized?
+              <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div class="faq-a-inner"><p>Ad placements are prepared for Adsterra in clearly marked containers — header banner, in-feed, sidebar, video detail, and footer. This build shows neutral placeholders; real ads appear only after you insert your official ad code, and they are always kept separate from videos, watch buttons, and download links.</p></div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button type="button" class="faq-q" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+              Is PREMIUM CONTENT FREE really free to use?
+              <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div class="faq-a-inner"><p>Yes — browsing, searching, and watching available videos costs nothing, and an ad-supported model keeps it that way. The Privacy Policy and Terms of Use are placeholders that must be finalized with legal review before public launch.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       AD SLOT F — FOOTER (data-ad-slot="footer", optional)
+       ============================================================ -->
+  <div class="ad-strip">
+    <div class="container">
+      <!-- ADSTERRA FOOTER BANNER: INSERT YOUR OFFICIAL AD CODE BELOW -->
+      <div class="ad-slot" data-ad-slot="footer" aria-label="Advertisement">
+        <span class="ad-placeholder">Advertisement</span>
+        <span class="ad-hint">Footer placement — paste your official Adsterra code here</span>
+        <!-- Paste the official Adsterra code supplied for this placement here. -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <h2 class="sr-only">Site footer</h2>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="brand" aria-label="PREMIUM CONTENT FREE — back to top">
+            <svg class="brand-logo" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="logo-grad-footer" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#8B5CF6"/>
+                  <stop offset="1" stop-color="#EC4899"/>
+                </linearGradient>
+              </defs>
+              <rect width="40" height="40" rx="11" fill="url(#logo-grad-footer)"/>
+              <path d="M15.5 12.5 28.5 20l-13 7.5z" fill="#fff"/>
+            </svg>
+            <span class="brand-name">PREMIUM&nbsp;<span class="grad-text">CONTENT</span>&nbsp;FREE</span>
+          </a>
+          <p class="footer-tagline">Discover More. Watch Better.</p>
+          <p class="footer-blurb">A cinematic home for handpicked videos, trending discoveries, and beautifully organized categories.</p>
+        </div>
+
+        <nav class="footer-col" aria-label="Footer — explore">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#latest">Latest Videos</a></li>
+            <li><a href="#trending">Trending</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#videos">All Videos</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><button type="button" data-policy="privacy">Privacy Policy</button></li>
+            <li><button type="button" data-policy="terms">Terms of Use</button></li>
+          </ul>
+          <!-- PLACEHOLDER: replace these policy stubs with finalized legal pages
+               reviewed by legal counsel before public launch. -->
+          <p class="footer-note">Policies are placeholders pending legal review and must be finalized before launch.</p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <!-- PLACEHOLDER: add your official contact email or contact form here. -->
+          <p class="footer-blurb">Contact details placeholder — add your official email address or contact form here before launch.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year">2026</span> PREMIUM CONTENT FREE. All rights reserved.</p>
+        <p>Demo build — replace sample content, policies, and ad placeholders before deployment.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= VIDEO PLAYER MODAL ================= -->
+  <div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" tabindex="-1">
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close video player">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+
+      <div class="player-stage" id="player-stage" data-active="">
+        <div class="player-loading" data-player-state="loading">
+          <span class="spinner" aria-hidden="true"></span>
+          <p>Loading player…</p>
+        </div>
+        <div class="player-media" data-player-state="media"></div>
+        <div class="player-note is-empty" data-player-state="empty">
+          <span class="note-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>
+          </span>
+          <p>Video coming soon. Please check back later.</p>
+        </div>
+        <div class="player-note is-error" data-player-state="error">
+          <span class="note-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19z"/><path d="M12 9.5v4.5M12 17h.01"/></svg>
+          </span>
+          <p>Playback error. This video source could not be loaded. Please try again later.</p>
+        </div>
+      </div>
+
+      <div class="modal-info">
+        <div class="modal-meta" id="modal-meta"></div>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-actions">
+          <a class="btn btn-ghost" id="modal-download" href="#" target="_blank" rel="noopener noreferrer" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M5 19h14"/></svg>
+            Download Full Video
+          </a>
+          <p class="dl-note" id="modal-download-note" hidden>Download not available for this video.</p>
+        </div>
+
+        <!-- ============================================================
+             AD SLOT E — VIDEO DETAIL (data-ad-slot="video-detail")
+             Below the player and description; never covers playback controls.
+             ============================================================ -->
+        <!-- ADSTERRA VIDEO DETAIL AD: INSERT YOUR OFFICIAL AD CODE BELOW -->
+        <div class="ad-slot ad-detail" data-ad-slot="video-detail" aria-label="Advertisement">
+          <span class="ad-placeholder">Advertisement</span>
+          <span class="ad-hint">Video detail placement — paste your official Adsterra code here</span>
+          <!-- Paste the official Adsterra code supplied for this placement here. -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= POLICY PLACEHOLDER MODAL ================= -->
+  <div class="modal" id="policy-modal" role="dialog" aria-modal="true" aria-labelledby="policy-title" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" tabindex="-1">
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close policy preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="policy-body">
+        <span class="policy-tag">Placeholder</span>
+        <h2 id="policy-title"></h2>
+        <p id="policy-body-text"></p>
+        <p>Before public launch, replace this placeholder with a complete, legally reviewed document that covers cookies, advertising partners, analytics, and user rights as required in your jurisdiction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    'use strict';
+
+    /* ============================================================
+       SITE CONFIGURATION
+       ============================================================ */
+    const SITE_CONFIG = {
+      // Set to false to collapse every ad container cleanly (layout stays intact).
+      enableAds: true,
+      // Insert a feed ad after every N video cards in the discovery gallery.
+      feedAdFrequency: 8,
+      // Debounce delay for the search input (ms).
+      searchDebounce: 200
+    };
+
+    /* ============================================================
+       VIDEO DATA
+       ------------------------------------------------------------
+       · All entries are clearly labeled SAMPLE placeholders.
+       · Two public, permissively-licensed test assets are used ONLY to
+         demonstrate the player: MDN's CC0 "flower" clip (direct MP4 + demo
+         download) and the Blender Foundation's CC-BY "Big Buck Bunny"
+         upload (official YouTube embed). Replace every entry with your own
+         authorized content before launch.
+       · videoType: "mp4" (direct HTML5 video) | "youtube" (official embed)
+       · videoUrl / downloadUrl: leave empty ("") when not authorized —
+         the UI then shows the "coming soon" state or hides the button.
+       · thumbnail: optional path/URL. When empty, a generated gradient
+         poster is used; a broken thumbnail falls back to the gradient.
+       ============================================================ */
+    // MDN shared-assets CC0 sample video (public, license-free test media).
+    const SAMPLE_MP4 = 'https://mdn.github.io/shared-assets/videos/flower.mp4';
+
+    const VIDEOS = [
+      {
+        id: 'sample-001',
+        title: 'Sample Cinematic Reel: Golden Hour',
+        description: 'Demo placeholder playing a public Creative Commons sample clip. Replace this entry with your own authorized video, thumbnail, and metadata.',
+        category: 'Entertainment',
+        thumbnail: '',
+        duration: '00:06',
+        publishedAt: '2026-10-18',
+        videoType: 'mp4',
+        videoUrl: SAMPLE_MP4,
+        downloadUrl: SAMPLE_MP4,
+        featured: true,
+        trending: true
+      },
+      {
+        id: 'sample-002',
+        title: 'Sample Stream: Blender Open Movie (YouTube Embed)',
+        description: 'Demonstrates a legitimate YouTube embed through the official player. Replace with your own authorized content.',
+        category: 'Entertainment',
+        thumbnail: '',
+        duration: '10:34',
+        publishedAt: '2026-10-16',
+        videoType: 'youtube',
+        videoUrl: 'https://www.youtube.com/watch?v=YE7VzlLtp-4',
+        downloadUrl: '',
+        featured: false,
+        trending: true
+      },
+      {
+        id: 'sample-005',
+        title: 'Sample Acoustic Session: Studio Take',
+        description: 'Placeholder sample media (public test clip) with an authorized demo download configured. Replace with your own content.',
+        category: 'Music',
+        thumbnail: '',
+        duration: '00:06',
+        publishedAt: '2026-10-17',
+        videoType: 'mp4',
+        videoUrl: SAMPLE_MP4,
+        downloadUrl: SAMPLE_MP4,
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-003',
+        title: 'Sample Travel Diary: Coastal Route',
+        description: 'Demo entry with no source configured yet — it intentionally opens the “Video coming soon” state.',
+        category: 'Travel',
+        thumbnail: '',
+        duration: '06:12',
+        publishedAt: '2026-10-15',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: true
+      },
+      {
+        id: 'sample-004',
+        title: 'Sample Tech Talk: Motion-First Interfaces',
+        description: 'Placeholder metadata for a technology talk. Configure videoUrl with your authorized source to make it playable.',
+        category: 'Technology',
+        thumbnail: '',
+        duration: '12:45',
+        publishedAt: '2026-10-12',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: true
+      },
+      {
+        id: 'sample-009',
+        title: 'Sample Gadget Walkthrough',
+        description: 'Demo placeholder. Replace the description and metadata with your actual content before launch.',
+        category: 'Technology',
+        thumbnail: '',
+        duration: '08:03',
+        publishedAt: '2026-10-11',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-010',
+        title: 'Sample Mountain Escape',
+        description: 'Placeholder sample media (public test clip) — playable, with no download configured.',
+        category: 'Travel',
+        thumbnail: '',
+        duration: '00:06',
+        publishedAt: '2026-10-09',
+        videoType: 'mp4',
+        videoUrl: SAMPLE_MP4,
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-006',
+        title: 'Sample Nature Documentary: Forest Light',
+        description: 'Demo placeholder with no source configured yet — opens the “Video coming soon” state.',
+        category: 'Nature',
+        thumbnail: '',
+        duration: '15:20',
+        publishedAt: '2026-10-06',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-012',
+        title: 'Sample Wildlife Shorts Compilation',
+        description: 'Placeholder metadata for a short-form nature compilation. Add your authorized source to enable playback.',
+        category: 'Nature',
+        thumbnail: '',
+        duration: '09:41',
+        publishedAt: '2026-10-04',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-007',
+        title: 'Sample Lesson: Editing Basics',
+        description: 'Demo placeholder for an educational entry. Replace with your own authorized lesson content.',
+        category: 'Education',
+        thumbnail: '',
+        duration: '18:27',
+        publishedAt: '2026-10-02',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-011',
+        title: 'Sample Live Set Recording',
+        description: 'Demo placeholder with no source configured yet — opens the “Video coming soon” state.',
+        category: 'Music',
+        thumbnail: '',
+        duration: '22:15',
+        publishedAt: '2026-09-28',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      },
+      {
+        id: 'sample-008',
+        title: 'Sample City Timelapse: Night Drive',
+        description: 'Placeholder metadata for a cinematic timelapse. Configure videoUrl with your authorized source to make it playable.',
+        category: 'Entertainment',
+        thumbnail: '',
+        duration: '05:38',
+        publishedAt: '2026-09-24',
+        videoType: 'mp4',
+        videoUrl: '',
+        downloadUrl: '',
+        featured: false,
+        trending: false
+      }
+    ];
+
+    /* ============================================================
+       TINY DOM HELPERS
+       ============================================================ */
+    const $  = (sel, ctx) => (ctx || document).querySelector(sel);
+    const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+    function el(tag, className, text) {
+      const n = document.createElement(tag);
+      if (className) n.className = className;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    function debounce(fn, ms) {
+      let t;
+      return function () {
+        const args = arguments;
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(null, args), ms);
+      };
+    }
+
+    /* Only http(s) URLs are accepted as media/download destinations. */
+    function sanitizeUrl(url) {
+      if (typeof url !== 'string' || !url.trim()) return '';
+      try {
+        const u = new URL(url, location.href);
+        if (u.protocol === 'https:' || u.protocol === 'http:') return u.href;
+        return '';
+      } catch (e) {
+        return '';
+      }
+    }
+
+    /* Extract a validated 11-character YouTube video id (official embeds only). */
+    function getYouTubeId(url) {
+      const m = String(url).match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      return m ? m[1] : '';
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso + 'T00:00:00');
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function hashString(str) {
+      let h = 2166136261;
+      for (let i = 0; i < str.length; i++) {
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+
+    /* ============================================================
+       GENERATED POSTER ART (tiny inline SVG data URIs — no external
+       images needed for the demo; replace with real thumbnails later)
+       ============================================================ */
+    function thumbPalette(video) {
+      const seed = hashString(video.id || video.title);
+      const h1 = seed % 360;
+      const h2 = (h1 + 55 + ((seed >>> 4) % 70)) % 360;
+      return { h1, h2, seed };
+    }
+
+    function posterFor(video) {
+      const { h1, h2, seed } = thumbPalette(video);
+      const c1 = 90 + (seed % 200);
+      const c2 = 70 + ((seed >>> 5) % 120);
+      const r1 = 150 + ((seed >>> 7) % 120);
+      const r2 = 90 + ((seed >>> 9) % 130);
+      const w1 = 240 + ((seed >>> 11) % 60);
+      const w2 = 282 + ((seed >>> 13) % 36);
+      const svg =
+        "<svg xmlns='http://www.w3.org/2000/svg' width='640' height='360' viewBox='0 0 640 360'>" +
+        "<defs>" +
+        "<linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+        "<stop offset='0' stop-color='hsl(" + h1 + ",42%,15%)'/>" +
+        "<stop offset='1' stop-color='hsl(" + h2 + ",52%,26%)'/>" +
+        "</linearGradient>" +
+        "<radialGradient id='r' cx='0.82' cy='0.18' r='0.95'>" +
+        "<stop offset='0' stop-color='hsla(" + h2 + ",88%,64%,0.42)'/>" +
+        "<stop offset='1' stop-color='hsla(" + h2 + ",88%,64%,0)'/>" +
+        "</radialGradient>" +
+        "</defs>" +
+        "<rect width='640' height='360' fill='url(#g)'/>" +
+        "<rect width='640' height='360' fill='url(#r)'/>" +
+        "<circle cx='" + c1 + "' cy='" + (60 + ((seed >>> 3) % 110)) + "' r='" + r1 + "' fill='hsla(" + h1 + ",80%,70%,0.10)'/>" +
+        "<circle cx='" + c2 + "' cy='" + (280 - ((seed >>> 6) % 90)) + "' r='" + r2 + "' fill='hsla(" + h2 + ",85%,62%,0.13)'/>" +
+        "<path d='M0 300 Q160 " + w1 + " 320 290 T640 280 V360 H0 Z' fill='hsla(" + h2 + ",72%,56%,0.16)'/>" +
+        "<path d='M0 322 Q200 " + w2 + " 400 318 T640 310 V360 H0 Z' fill='hsla(" + h1 + ",72%,60%,0.14)'/>" +
+        "<path d='M298 150 342 180 298 210 Z' fill='none' stroke='hsla(0,0%,100%,0.5)' stroke-width='3' stroke-linejoin='round'/>" +
+        "</svg>";
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    /* ============================================================
+       SVG ICON CONSTANTS (static strings only — safe for innerHTML)
+       ============================================================ */
+    const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6.5v11l9-5.5z" fill="currentColor"/></svg>';
+    const ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
+    const ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>';
+
+    const CATEGORY_ICONS = {
+      'Entertainment': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>',
+      'Technology': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>',
+      'Travel': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.6 4 5.7 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.7-4-9s1.4-6.4 4-9z"/></svg>',
+      'Music': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+      'Nature': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19C5 9.5 11 4 20 4c0 9-5 15-15 15z"/><path d="M5 19c3.2-6 7.2-9.2 12-11"/></svg>',
+      'Education': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V6a2 2 0 0 1 2-2h13v13H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13v-4"/></svg>',
+      'Default': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>'
+    };
+
+    /* ============================================================
+       GLOBAL STATE
+       ============================================================ */
+    const galleryState = { query: '', category: 'All', mode: 'latest' };
+    let openDialogEl = null;
+    let lastFocused = null;
+    let currentVideo = null;
+    let mobileMenuOpen = false;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const headerEl = $('#site-header');
+    const menuToggle = $('#menu-toggle');
+    const mobileMenu = $('#mobile-menu');
+    const playerStage = $('#player-stage');
+    const playerMedia = $('.player-media', playerStage);
+    const videoGrid = $('#video-grid');
+    const resultCount = $('#result-count');
+    const searchInput = $('#video-search');
+    const searchClear = $('#search-clear');
+
+    /* ============================================================
+       CARD RENDERING
+       ============================================================ */
+    function createThumb(container, video, eager) {
+      const { h1, h2 } = thumbPalette(video);
+      container.style.background =
+        'linear-gradient(135deg, hsl(' + h1 + ',42%,15%), hsl(' + h2 + ',52%,26%))';
+      container.dataset.letter = (video.title || 'P').charAt(0).toUpperCase();
+
+      const img = document.createElement('img');
+      img.className = 'card-img';
+      img.alt = 'Thumbnail artwork for \u201C' + video.title + '\u201D';
+      img.decoding = 'async';
+      img.loading = eager ? 'eager' : 'lazy';
+      if (eager) img.setAttribute('fetchpriority', 'high');
+      img.src = video.thumbnail || posterFor(video);
+      img.addEventListener('error', function () {
+        img.remove();
+        container.classList.add('no-img');
+      }, { once: true });
+      container.appendChild(img);
+    }
+
+    function createPlayButton(video, large) {
+      const play = el('button', 'play-overlay');
+      play.type = 'button';
+      play.dataset.action = 'watch';
+      play.dataset.videoId = video.id;
+      play.setAttribute('aria-label', 'Watch video: ' + video.title);
+      play.innerHTML = '<span class="play-btn' + (large ? ' play-btn-lg' : '') + '">' + ICON_PLAY + '</span>';
+      return play;
+    }
+
+    function createVideoCard(video, opts) {
+      opts = opts || {};
+      const card = el('article', 'video-card');
+      card.dataset.videoId = video.id;
+
+      const thumb = el('div', 'card-thumb');
+      createThumb(thumb, video, opts.eager);
+      thumb.appendChild(el('span', 'badge badge-cat', video.category));
+      thumb.appendChild(el('span', 'badge badge-dur', video.duration));
+      thumb.appendChild(createPlayButton(video, false));
+
+      const body = el('div', 'card-body');
+      const meta = el('div', 'card-meta');
+      meta.appendChild(el('span', 'badge badge-sample', 'Sample'));
+      if (video.publishedAt) {
+        const t = el('time', null, formatDate(video.publishedAt));
+        t.dateTime = video.publishedAt;
+        meta.appendChild(t);
+      }
+      body.appendChild(meta);
+      body.appendChild(el('h3', 'card-title', video.title));
+      body.appendChild(el('p', 'card-desc', video.description));
+
+      const actions = el('div', 'card-actions');
+      const watch = el('button', 'btn btn-primary btn-sm', 'Watch Video');
+      watch.type = 'button';
+      watch.dataset.action = 'watch';
+      watch.dataset.videoId = video.id;
+      actions.appendChild(watch);
+
+      const dl = sanitizeUrl(video.downloadUrl);
+      if (dl) {
+        const a = el('a', 'btn btn-ghost btn-sm', 'Download Full Video');
+        a.href = dl;
+        a.setAttribute('download', '');
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.title = 'Opens the authorized download source in a new tab';
+        actions.appendChild(a);
+      }
+      body.appendChild(actions);
+
+      card.appendChild(thumb);
+      card.appendChild(body);
+      return card;
+    }
+
+    /* ============================================================
+       HERO — FEATURED VIDEO
+       ============================================================ */
+    function renderFeatured() {
+      const v = VIDEOS.find(function (x) { return x.featured; }) || VIDEOS[0];
+      const watchBtn = $('#featured-watch');
+      if (watchBtn) watchBtn.dataset.videoId = v.id;
+
+      const host = $('#featured-card');
+      host.replaceChildren();
+
+      const thumb = el('div', 'featured-thumb');
+      createThumb(thumb, v, true);
+      thumb.appendChild(el('span', 'badge badge-featured', 'Featured'));
+
+      const info = el('div', 'featured-info');
+      info.appendChild(el('p', 'featured-kicker', 'Featured video'));
+      info.appendChild(el('p', 'featured-title', v.title));
+      const chips = el('div', 'featured-chips');
+      chips.appendChild(el('span', 'badge badge-cat', v.category));
+      chips.appendChild(el('span', 'badge badge-dur', v.duration));
+      info.appendChild(chips);
+      thumb.appendChild(info);
+
+      thumb.appendChild(createPlayButton(v, true));
+      host.appendChild(thumb);
+    }
+
+    /* ============================================================
+       TRENDING ROW + LATEST GRID
+       ============================================================ */
+    function renderTrending() {
+      const row = $('#trending-row');
+      const list = VIDEOS.filter(function (v) { return v.trending; });
+      row.replaceChildren();
+      list.forEach(function (v) { row.appendChild(createVideoCard(v)); });
+    }
+
+    function renderLatest() {
+      const grid = $('#latest-grid');
+      const list = VIDEOS.slice()
+        .sort(function (a, b) { return new Date(b.publishedAt) - new Date(a.publishedAt); })
+        .slice(0, 4);
+      grid.replaceChildren();
+      list.forEach(function (v) { grid.appendChild(createVideoCard(v)); });
+    }
+
+    /* ============================================================
+       DISCOVERY GALLERY (search + category + mode + feed ads)
+       ============================================================ */
+    function feedAdNode(index) {
+      const wrap = el('div', 'grid-ad');
+      wrap.innerHTML =
+        '<!-- ADSTERRA GALLERY FEED AD (insertion ' + index + '): INSERT YOUR OFFICIAL AD CODE BELOW -->' +
+        '<div class="ad-slot" data-ad-slot="gallery-feed" data-ad-index="' + index + '" aria-label="Advertisement">' +
+        '<span class="ad-placeholder">Advertisement</span>' +
+        '<span class="ad-hint">In-feed placement — paste your official Adsterra code here</span>' +
+        '<!-- Paste the official Adsterra code supplied for this feed placement here. -->' +
+        '</div>';
+      return wrap;
+    }
+
+    function buildEmptyState() {
+      const d = el('div', 'empty-state');
+      const icon = el('span', 'empty-icon');
+      icon.innerHTML = ICON_SEARCH;
+      d.appendChild(icon);
+      d.appendChild(el('p', 'empty-title', 'No videos match your search'));
+      d.appendChild(el('p', 'empty-sub', 'Try a different keyword or category — or clear the filters to see the full library.'));
+      const b = el('button', 'btn btn-ghost', 'Clear search');
+      b.type = 'button';
+      b.dataset.action = 'clear-search';
+      d.appendChild(b);
+      return d;
+    }
+
+    function getFilteredVideos() {
+      const q = galleryState.query.trim().toLowerCase();
+      let list = VIDEOS.slice();
+      if (galleryState.category !== 'All') {
+        list = list.filter(function (v) { return v.category === galleryState.category; });
+      }
+      if (galleryState.mode === 'trending') {
+        list = list.filter(function (v) { return v.trending; });
+      }
+      if (q) {
+        list = list.filter(function (v) {
+          return v.title.toLowerCase().indexOf(q) !== -1 ||
+                 v.description.toLowerCase().indexOf(q) !== -1;
+        });
+      }
+      list.sort(function (a, b) { return new Date(b.publishedAt) - new Date(a.publishedAt); });
+      return list;
+    }
+
+    function renderGallery() {
+      const list = getFilteredVideos();
+      videoGrid.replaceChildren();
+
+      if (!list.length) {
+        videoGrid.appendChild(buildEmptyState());
+      } else {
+        const freq = SITE_CONFIG.feedAdFrequency;
+        let adIndex = 0;
+        list.forEach(function (v, i) {
+          videoGrid.appendChild(createVideoCard(v));
+          if (SITE_CONFIG.enableAds && freq > 0 && (i + 1) % freq === 0 && i < list.length - 1) {
+            adIndex += 1;
+            videoGrid.appendChild(feedAdNode(adIndex));
+          }
+        });
+      }
+
+      const q = galleryState.query.trim();
+      resultCount.textContent = q
+        ? list.length + (list.length === 1 ? ' result' : ' results') + ' for \u201C' + q + '\u201D'
+        : list.length + (list.length === 1 ? ' video' : ' videos');
+    }
+
+    function renderCategoryChips() {
+      const host = $('#category-chips');
+      host.replaceChildren();
+      const cats = ['All'].concat(Array.from(new Set(VIDEOS.map(function (v) { return v.category; }))));
+      cats.forEach(function (c) {
+        const b = el('button', 'chip', c);
+        b.type = 'button';
+        b.dataset.category = c;
+        b.setAttribute('aria-pressed', String(c === galleryState.category));
+        if (c === galleryState.category) b.classList.add('active');
+        host.appendChild(b);
+      });
+    }
+
+    function renderCategoryTiles() {
+      const host = $('#category-tiles');
+      const counts = {};
+      VIDEOS.forEach(function (v) { counts[v.category] = (counts[v.category] || 0) + 1; });
+      host.replaceChildren();
+      Object.keys(counts).forEach(function (name) {
+        const count = counts[name];
+        const b = el('button', 'cat-tile');
+        b.type = 'button';
+        b.dataset.action = 'pick-category';
+        b.dataset.category = name;
+        b.setAttribute('aria-label', 'Browse ' + count + ' ' + name + ' video' + (count === 1 ? '' : 's'));
+        b.innerHTML =
+          '<span class="cat-icon">' + (CATEGORY_ICONS[name] || CATEGORY_ICONS.Default) + '</span>' +
+          '<span class="cat-name"></span>' +
+          '<span class="cat-count"></span>' +
+          '<span class="cat-arrow">' + ICON_ARROW + '</span>';
+        b.querySelector('.cat-name').textContent = name;
+        b.querySelector('.cat-count').textContent = count + (count === 1 ? ' video' : ' videos');
+        host.appendChild(b);
+      });
+    }
+
+    /* ============================================================
+       VIDEO MODAL + PLAYER
+       ============================================================ */
+    function setPlayerState(state) {
+      playerStage.dataset.active = state;
+    }
+
+    function teardownPlayer() {
+      playerMedia.replaceChildren();
+      playerStage.classList.remove('is-buffering');
+      setPlayerState('');
+    }
+
+    function buildPlayer(video) {
+      teardownPlayer();
+      const src = sanitizeUrl(video.videoUrl);
+
+      if (!src) {
+        setPlayerState('empty');
+        return;
+      }
+
+      setPlayerState('media');
+      playerStage.classList.add('is-buffering');
+
+      if (video.videoType === 'youtube') {
+        const id = getYouTubeId(src);
+        if (!id) {
+          teardownPlayer();
+          setPlayerState('error');
+          return;
+        }
+        const frame = document.createElement('iframe');
+        frame.className = 'player-frame';
+        frame.title = video.title;
+        frame.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        frame.setAttribute('allowfullscreen', '');
+        frame.referrerPolicy = 'strict-origin-when-cross-origin';
+        // Official YouTube (privacy-enhanced) embed URL — no third-party wrappers.
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0';
+        frame.addEventListener('load', function () {
+          playerStage.classList.remove('is-buffering');
+        }, { once: true });
+        playerMedia.appendChild(frame);
+      } else {
+        const vid = document.createElement('video');
+        vid.className = 'player-video';
+        vid.controls = true;
+        vid.preload = 'metadata';
+        vid.playsInline = true;
+        vid.setAttribute('playsinline', '');
+        // No autoplay: playback only starts when the visitor presses play.
+        vid.src = src;
+        vid.addEventListener('loadeddata', function () {
+          playerStage.classList.remove('is-buffering');
+        }, { once: true });
+        vid.addEventListener('error', function () {
+          setPlayerState('error');
+        }, { once: true });
+        playerMedia.appendChild(vid);
+      }
+    }
+
+    function openVideoModal(videoId) {
+      const v = VIDEOS.find(function (x) { return x.id === videoId; });
+      if (!v) return;
+      currentVideo = v;
+
+      $('#modal-title').textContent = v.title;
+      $('#modal-desc').textContent = v.description;
+
+      const meta = $('#modal-meta');
+      meta.replaceChildren();
+      meta.appendChild(el('span', 'badge badge-sample', 'Sample'));
+      meta.appendChild(el('span', 'badge badge-cat', v.category));
+      meta.appendChild(el('span', 'badge badge-dur', v.duration));
+      if (v.publishedAt) {
+        const t = el('time', 'meta-date', formatDate(v.publishedAt));
+        t.dateTime = v.publishedAt;
+        meta.appendChild(t);
+      }
+
+      const dl = sanitizeUrl(v.downloadUrl);
+      const dlBtn = $('#modal-download');
+      const dlNote = $('#modal-download-note');
+      if (dl) {
+        dlBtn.href = dl;
+        dlBtn.hidden = false;
+        dlNote.hidden = true;
+      } else {
+        dlBtn.href = '#';
+        dlBtn.hidden = true;
+        dlNote.hidden = false;
+      }
+
+      buildPlayer(v);
+      openDialog($('#video-modal'));
+    }
+
+    /* ============================================================
+       ACCESSIBLE DIALOG SYSTEM (focus trap + Escape + restore focus)
+       ============================================================ */
+    const FOCUSABLE = 'a[href], button:not([disabled]), iframe, video, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    function openDialog(dlg) {
+      if (openDialogEl && openDialogEl !== dlg) closeDialog(openDialogEl);
+      openDialogEl = dlg;
+      lastFocused = document.activeElement;
+      dlg.hidden = false;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { dlg.classList.add('open'); });
+      });
+      const panel = $('.modal-panel', dlg);
+      if (panel) panel.focus();
+      document.body.classList.add('no-scroll');
+    }
+
+    function closeDialog(dlg) {
+      if (!dlg) return;
+      dlg.classList.remove('open');
+      let finished = false;
+      const finish = function () {
+        if (finished) return;
+        finished = true;
+        dlg.hidden = true;
+      };
+      dlg.addEventListener('transitionend', finish, { once: true });
+      setTimeout(finish, 320); // fallback (e.g. reduced motion kills transitions)
+
+      if (dlg.id === 'video-modal') teardownPlayer();
+      document.body.classList.remove('no-scroll');
+      openDialogEl = null;
+      if (lastFocused && document.contains(lastFocused)) {
+        try { lastFocused.focus(); } catch (e) { /* noop */ }
+      }
+      lastFocused = null;
+    }
+
+    function trapTab(e) {
+      const panel = $('.modal-panel', openDialogEl);
+      if (!panel) return;
+      const focusables = Array.prototype.filter.call(
+        panel.querySelectorAll(FOCUSABLE),
+        function (n) {
+          return !n.hasAttribute('hidden') &&
+                 !n.closest('[hidden]') &&
+                 n.getClientRects().length > 0;
+        }
+      );
+      if (!focusables.length) { e.preventDefault(); return; }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (openDialogEl) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeDialog(openDialogEl);
+        } else if (e.key === 'Tab') {
+          trapTab(e);
+        }
+        return;
+      }
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        closeMobileMenu();
+        menuToggle.focus();
+      }
+    });
+
+    /* ============================================================
+       POLICY PLACEHOLDER MODAL
+       ============================================================ */
+    const POLICIES = {
+      privacy: {
+        title: 'Privacy Policy — Placeholder',
+        body: 'This is a placeholder document for the demo build. It is not a finalized privacy policy and must not be published as one. Replace it with a complete policy describing what data your site collects, cookie and advertising disclosures (including your ad partner), analytics, and user rights — reviewed by legal counsel before launch.'
+      },
+      terms: {
+        title: 'Terms of Use — Placeholder',
+        body: 'This is a placeholder document for the demo build. It is not a finalized terms of use and must not be published as one. Replace it with complete terms covering acceptable use, content ownership, availability disclaimers, and limitations of liability — reviewed by legal counsel before launch.'
+      }
+    };
+
+    function openPolicy(name) {
+      const p = POLICIES[name];
+      if (!p) return;
+      $('#policy-title').textContent = p.title;
+      $('#policy-body-text').textContent = p.body;
+      openDialog($('#policy-modal'));
+    }
+
+    /* ============================================================
+       MOBILE MENU (disclosure pattern)
+       ============================================================ */
+    function openMobileMenu() {
+      mobileMenu.hidden = false;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { mobileMenu.classList.add('open'); });
+      });
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.setAttribute('aria-label', 'Close menu');
+      document.body.classList.add('no-scroll');
+      mobileMenuOpen = true;
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      setTimeout(function () { mobileMenu.hidden = true; }, 260);
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open menu');
+      document.body.classList.remove('no-scroll');
+      mobileMenuOpen = false;
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = $('#toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3400);
+    }
+
+    /* ============================================================
+       HEADER BEHAVIOR
+       ============================================================ */
+    function onScroll() {
+      headerEl.classList.toggle('scrolled', window.scrollY > 8);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    menuToggle.addEventListener('click', function () {
+      mobileMenuOpen ? closeMobileMenu() : openMobileMenu();
+    });
+    $$('#mobile-menu a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        if (mobileMenuOpen) closeMobileMenu();
+      });
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 900 && mobileMenuOpen) closeMobileMenu();
+    });
+
+    function focusVideoSearch() {
+      if (mobileMenuOpen) closeMobileMenu();
+      const behavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
+      const target = $('#videos');
+      if (target) target.scrollIntoView({ behavior: behavior, block: 'start' });
+      setTimeout(function () {
+        if (searchInput) searchInput.focus({ preventScroll: true });
+      }, prefersReducedMotion.matches ? 60 : 520);
+    }
+
+    /* ============================================================
+       GLOBAL EVENT DELEGATION
+       ============================================================ */
+    document.addEventListener('click', function (e) {
+      const watchBtn = e.target.closest('[data-action="watch"]');
+      if (watchBtn) {
+        openVideoModal(watchBtn.dataset.videoId);
+        return;
+      }
+
+      const clearBtn = e.target.closest('[data-action="clear-search"]');
+      if (clearBtn) {
+        galleryState.query = '';
+        galleryState.category = 'All';
+        if (searchInput) searchInput.value = '';
+        searchClear.hidden = true;
+        renderCategoryChips();
+        renderGallery();
+        if (searchInput) searchInput.focus();
+        return;
+      }
+
+      const focusBtn = e.target.closest('[data-action="focus-search"]');
+      if (focusBtn) {
+        focusVideoSearch();
+        return;
+      }
+
+      const pickBtn = e.target.closest('[data-action="pick-category"]');
+      if (pickBtn) {
+        setCategory(pickBtn.dataset.category);
+        const behavior = prefersReducedMotion.matches ? 'auto' : 'smooth';
+        $('#videos').scrollIntoView({ behavior: behavior, block: 'start' });
+        return;
+      }
+
+      const chip = e.target.closest('.chip[data-category]');
+      if (chip) {
+        setCategory(chip.dataset.category);
+        return;
+      }
+
+      const modeBtn = e.target.closest('[data-mode]');
+      if (modeBtn) {
+        galleryState.mode = modeBtn.dataset.mode;
+        $$('#sort-mode [data-mode]').forEach(function (b) {
+          const active = b === modeBtn;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', String(active));
+        });
+        renderGallery();
+        return;
+      }
+
+      const rowBtn = e.target.closest('[data-action="scroll-row"]');
+      if (rowBtn) {
+        const row = $('#trending-row');
+        const dir = parseInt(rowBtn.dataset.dir, 10) || 1;
+        row.scrollBy({ left: dir * 384, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
+        return;
+      }
+
+      const closeBtn = e.target.closest('[data-close-modal]');
+      if (closeBtn && openDialogEl) {
+        closeDialog(openDialogEl);
+        return;
+      }
+
+      const policyBtn = e.target.closest('[data-policy]');
+      if (policyBtn) {
+        openPolicy(policyBtn.dataset.policy);
+        return;
+      }
+    });
+
+    function setCategory(cat) {
+      galleryState.category = cat;
+      $$('#category-chips .chip').forEach(function (b) {
+        const active = b.dataset.category === cat;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      renderGallery();
+    }
+
+    $('#search-toggle').addEventListener('click', focusVideoSearch);
+
+    /* Search input (debounced) */
+    const onSearchInput = debounce(function () {
+      galleryState.query = searchInput.value;
+      searchClear.hidden = searchInput.value.length === 0;
+      renderGallery();
+    }, SITE_CONFIG.searchDebounce);
+
+    if (searchInput) {
+      searchInput.addEventListener('input', onSearchInput);
+    }
+
+    /* ============================================================
+       NEWSLETTER (client-side demo validation only)
+       ============================================================ */
+    $('#newsletter-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const input = $('#newsletter-email');
+      const msg = $('#newsletter-msg');
+      const value = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+      if (!valid) {
+        msg.textContent = 'Please enter a valid email address (e.g. name@example.com).';
+        msg.className = 'form-msg error';
+        input.focus();
+        return;
+      }
+      msg.textContent = '\u2713 Demo confirmation: the address format is valid. This is a frontend demo — nothing was stored, sent, or subscribed.';
+      msg.className = 'form-msg success';
+      e.target.reset();
+      showToast('Demo only — no email was stored.');
+    });
+
+    /* ============================================================
+       FAQ ACCORDION
+       ============================================================ */
+    $$('.faq-q').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        $$('.faq-q').forEach(function (other) {
+          if (other !== btn) {
+            other.setAttribute('aria-expanded', 'false');
+            const panel = document.getElementById(other.getAttribute('aria-controls'));
+            if (panel) panel.classList.remove('open');
+          }
+        });
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (panel) panel.classList.toggle('open', !isOpen);
+      });
+    });
+
+    /* ============================================================
+       SCROLL REVEALS + NAV SPY + HERO PARALLAX
+       ============================================================ */
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      $$('.reveal').forEach(function (n) { revealObserver.observe(n); });
+
+      const navLinks = $$('.nav-link');
+      const spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(function (l) {
+              l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      ['home', 'trending', 'latest', 'categories'].forEach(function (id) {
+        const s = document.getElementById(id);
+        if (s) spy.observe(s);
+      });
+    } else {
+      $$('.reveal').forEach(function (n) { n.classList.add('in-view'); });
+    }
+
+    /* Subtle hero parallax — pointer-fine devices only, never when the
+       visitor prefers reduced motion. */
+    if (window.matchMedia('(pointer: fine)').matches && !prefersReducedMotion.matches) {
+      const hero = $('.hero');
+      const heroBg = $('.hero-bg');
+      let raf = 0;
+      hero.addEventListener('mousemove', function (e) {
+        if (raf) return;
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        raf = requestAnimationFrame(function () {
+          heroBg.style.transform = 'translate3d(' + (x * 14).toFixed(1) + 'px,' + (y * 10).toFixed(1) + 'px,0)';
+          raf = 0;
+        });
+      });
+      hero.addEventListener('mouseleave', function () {
+        heroBg.style.transform = '';
+      });
+    }
+
+    /* ============================================================
+       ADS TOGGLE + INIT
+       ============================================================ */
+    if (!SITE_CONFIG.enableAds) {
+      document.documentElement.classList.add('ads-off');
+    }
+
+    $('#year').textContent = String(new Date().getFullYear());
+
+    renderFeatured();
+    renderTrending();
+    renderLatest();
+    renderCategoryChips();
+    renderCategoryTiles();
+    renderGallery();
+  </script>
+</body>
+</html>
