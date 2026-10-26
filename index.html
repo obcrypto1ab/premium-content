@@ -260,6 +260,11 @@
       .main-nav{display:none}
       .menu-toggle{display:inline-flex}
     }
+    @media (max-width:480px){
+      .brand-name{font-size:.76rem;letter-spacing:.09em}
+      .brand-logo{width:33px;height:33px}
+      .icon-btn{width:40px;height:40px}
+    }
     @media (min-width:900px){
       .mobile-menu{display:none}
     }
@@ -2013,7 +2018,10 @@
       lastFocused = document.activeElement;
       dlg.hidden = false;
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () { dlg.classList.add('open'); });
+        requestAnimationFrame(function () {
+          // guard: a same-frame close (e.g. instant Escape) must not be undone
+          if (openDialogEl === dlg) dlg.classList.add('open');
+        });
       });
       const panel = $('.modal-panel', dlg);
       if (panel) panel.focus();
@@ -2106,7 +2114,9 @@
     function openMobileMenu() {
       mobileMenu.hidden = false;
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () { mobileMenu.classList.add('open'); });
+        requestAnimationFrame(function () {
+          if (mobileMenuOpen) mobileMenu.classList.add('open');
+        });
       });
       menuToggle.setAttribute('aria-expanded', 'true');
       menuToggle.setAttribute('aria-label', 'Close menu');
@@ -2375,9 +2385,4 @@
     renderGallery();
   </script>
 </body>
-
-<script data-cfasync="false" src="https://bicea.org/14/bd8d5d0b41cb6ea3bf765670348835d0"></script>
-
-  https://arwf.org/4/2a25d33354df14068c745d876d85d205
-  
 </html>
